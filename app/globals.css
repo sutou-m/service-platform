@@ -1,26 +1,106 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   Raw CSS variables
+   These are referenced by @theme inline below, keeping the
+   values runtime-overridable (dark mode, future theming).
+   ─────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Brand palette — BRUTUS-inspired monotone + warm accent */
+  --ink:     #1a1a1a;
+  --paper:   #f5f5f5;
+  --accent:  #e8e0d5;
+  --surface: #ffffff;
+  --muted:   #757575;
+  --border:  #e0e0e0;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Semantic aliases (keep existing names so bg-background /
+     text-foreground utilities continue to work) */
+  --background: var(--paper);
+  --foreground: var(--ink);
+
+  /* Status */
+  --success: #2e7d32;
+  --warning: #f57c00;
+  --danger:  #c62828;
+  --info:    #1565c0;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --ink:     #ededed;
+    --paper:   #111111;
+    --surface: #1c1c1c;
+    --muted:   #9a9a9a;
+    --border:  #2e2e2e;
+    --accent:  #3a3530;
   }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Tailwind design tokens
+   Registered here → available as Tailwind utilities:
+     bg-ink, text-paper, border-border, text-muted …
+   @theme inline keeps values as CSS variables so dark mode
+   overrides above propagate at runtime.
+   ─────────────────────────────────────────────────────────── */
+@theme inline {
+  /* Semantic */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Brand */
+  --color-ink:     var(--ink);
+  --color-paper:   var(--paper);
+  --color-accent:  var(--accent);
+  --color-surface: var(--surface);
+  --color-muted:   var(--muted);
+  --color-border:  var(--border);
+
+  /* Status */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger:  var(--danger);
+  --color-info:    var(--info);
+
+  /* Typography
+     Section layouts inject --font-noto-sans / --font-noto-serif
+     via next/font/google variable classes on their wrapper elements.
+     Geist (injected by RootLayout) is the fallback until then. */
+  --font-sans:  var(--font-noto-sans, var(--font-geist-sans, Arial, Helvetica, sans-serif));
+  --font-serif: var(--font-noto-serif, "Noto Serif JP", Georgia, serif);
+  --font-mono:  var(--font-geist-mono, ui-monospace, "Courier New", monospace);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Base styles
+   ─────────────────────────────────────────────────────────── */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tailwind Preflight resets headings; restore serif for public
+   pages. Admin layouts override with font-sans on their wrapper. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+dialog::backdrop {
+  background-color: color-mix(in oklab, var(--ink) 55%, transparent);
 }

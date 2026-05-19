@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
@@ -10,4 +5,262 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+// ─── Auth (NextAuth Prisma Adapter) ─────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  CONTRACTOR
+}
+
+model User {
+  id            String      @id @default(cuid())
+  name          String?
+  email         String      @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?     // bcrypt hash — used by Credentials provider
+  role          UserRole    @default(ADMIN)
+  createdAt     DateTime    @default(now())
+  accounts      Account[]
+  sessions      Session[]
+  contractor    Contractor?
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── Inquiry（問い合わせ） ───────────────────────────────────────────────────
+
+enum InquiryStatus {
+  NEW
+  CONVERTED
+  CLOSED
+}
+
+model Inquiry {
+  id          String        @id @default(cuid())
+  name        String
+  phone       String
+  email       String
+  address     String
+  workContent String
+  preferredAt DateTime?
+  notes       String?
+  photoUrls   String[]
+  status      InquiryStatus @default(NEW)
+  memo        String?
+  createdAt   DateTime      @default(now())
+  customerId  String?
+  customer    Customer?     @relation(fields: [customerId], references: [id])
+  order       Order?
+}
+
+// ─── Customer（顧客） ───────────────────────────────────────────────────────
+
+model Customer {
+  id        String    @id @default(cuid())
+  name      String
+  phone     String
+  email     String    @unique
+  address   String?
+  memo      String?
+  createdAt DateTime  @default(now())
+  inquiries Inquiry[]
+  orders    Order[]
+  invoices  Invoice[]
+}
+
+// ─── Contractor（登録業者） ─────────────────────────────────────────────────
+
+enum ContractorStatus {
+  PENDING
+  ACTIVE
+  INACTIVE
+}
+
+model Contractor {
+  id            String           @id @default(cuid())
+  companyName   String
+  ownerName     String
+  address       String
+  phone         String
+  email         String           @unique
+  areas         String[]
+  serviceTypes  String[]
+  bio           String?
+  status        ContractorStatus @default(PENDING)
+  creditBalance Int              @default(0)
+  creditLimit   Int              @default(0)
+  userId        String?          @unique
+  user          User?            @relation(fields: [userId], references: [id])
+  orders        Order[]
+  reports       OrderReport[]
+  createdAt     DateTime         @default(now())
+}
+
+// ─── Order（案件） ──────────────────────────────────────────────────────────
+
+enum OrderStatus {
+  NEW
+  VISIT_SCHEDULING
+  WORK_SCHEDULED
+  WORKING
+  WORK_DONE
+  INVOICED
+  PAID
+  CLOSED
+}
+
+model Order {
+  id            String               @id @default(cuid())
+  customerId    String
+  customer      Customer             @relation(fields: [customerId], references: [id])
+  inquiryId     String?              @unique
+  inquiry       Inquiry?             @relation(fields: [inquiryId], references: [id])
+  contractorId  String?
+  contractor    Contractor?          @relation(fields: [contractorId], references: [id])
+  workContent   String
+  workAddress   String
+  visitAt       DateTime?
+  workAt        DateTime?
+  status        OrderStatus          @default(NEW)
+  internalMemo  String?
+  statusHistory OrderStatusHistory[]
+  reports       OrderReport[]
+  invoices      Invoice[]
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+}
+
+model OrderStatusHistory {
+  id        String      @id @default(cuid())
+  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id])
+  status    OrderStatus
+  changedAt DateTime    @default(now())
+  changedBy String?
+}
+
+// ─── OrderReport（作業報告） ────────────────────────────────────────────────
+
+model OrderReport {
+  id           String     @id @default(cuid())
+  orderId      String
+  order        Order      @relation(fields: [orderId], references: [id])
+  contractorId String
+  contractor   Contractor @relation(fields: [contractorId], references: [id])
+  workedAt     DateTime
+  content      String
+  photoUrls    String[]
+  createdAt    DateTime   @default(now())
+}
+
+// ─── Invoice / InvoiceItem / Payment（請求） ────────────────────────────────
+
+enum InvoiceStatus {
+  UNPAID
+  PARTIAL
+  PAID
+}
+
+model Invoice {
+  id          String        @id @default(cuid())
+  orderId     String
+  order       Order         @relation(fields: [orderId], references: [id])
+  customerId  String
+  customer    Customer      @relation(fields: [customerId], references: [id])
+  issueDate   DateTime      @default(now())
+  dueDate     DateTime?
+  totalAmount Int
+  status      InvoiceStatus @default(UNPAID)
+  items       InvoiceItem[]
+  payments    Payment[]
+  createdAt   DateTime      @default(now())
+}
+
+model InvoiceItem {
+  id          String  @id @default(cuid())
+  invoiceId   String
+  invoice     Invoice @relation(fields: [invoiceId], references: [id])
+  description String
+  quantity    Int
+  unitPrice   Int
+  amount      Int
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  invoiceId String
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  amount    Int
+  paidAt    DateTime
+  note      String?
+}
+
+// ─── CmsPost（事例記事） ────────────────────────────────────────────────────
+
+model CmsPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String?
+  content     String
+  imageUrls   String[]
+  area        String?
+  serviceType String?
+  completedAt DateTime?
+  published   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ─── Notification（通知ログ） ───────────────────────────────────────────────
+
+model Notification {
+  id      String   @id @default(cuid())
+  type    String
+  payload Json
+  sentAt  DateTime @default(now())
+  success Boolean
+}
+
+// ─── SystemConfig（システム設定 KV） ────────────────────────────────────────
+
+model SystemConfig {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
 }

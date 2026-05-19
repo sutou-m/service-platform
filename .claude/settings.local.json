@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"D:\\\\dev\\\\servicehub\\\\service-platform\\\\.next\\\\static\" -Recurse | Where-Object { $_.Extension -eq \".css\" } | Select-Object FullName)",
+      "PowerShell(Get-ChildItem \"D:\\\\dev\\\\servicehub\\\\service-platform\\\\.next\" -Recurse | Where-Object { $_.Name -match \"\\\\.css\" } | Select-Object FullName)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('exports:', list\\(d.get\\('exports',{}\\).keys\\(\\)\\)[:10]\\); print\\('main:', d.get\\('main',''\\)\\); print\\('version:', d.get\\('version',''\\)\\)\")",
+      "Bash(node *)",
+      "PowerShell(node -e \"console.log\\(require\\('D:/dev/servicehub/service-platform/node_modules/bcryptjs/package.json'\\).version\\)\")",
+      "Bash(npx prisma *)",
+      "Bash(echo \"Exit code: $?\")",
+      "PowerShell(cd D:\\\\dev\\\\servicehub\\\\service-platform; $env:DATABASE_URL=\"prisma+postgres://localhost:51213/?api_key=eyJkYXRhYmFzZVVybCI6InBvc3RncmVzOi8vcG9zdGdyZXM6cG9zdGdyZXNAbG9jYWxob3N0OjUxMjE0L3RlbXBsYXRlMT9zc2xtb2RlPWRpc2FibGUmY29ubmVjdGlvbl9saW1pdD0xMCZjb25uZWN0X3RpbWVvdXQ9MCZtYXhfaWRsZV9jb25uZWN0aW9uX2xpZmV0aW1lPTAmcG9vbF90aW1lb3V0PTAmc29ja2V0X3RpbWVvdXQ9MCIsIm5hbWUiOiJkZWZhdWx0Iiwic2hhZG93RGF0YWJhc2VVcmwiOiJwb3N0Z3JlczovL3Bvc3RncmVzOnBvc3RncmVzQGxvY2FsaG9zdDo1MTIxNS90ZW1wbGF0ZTE_c3NsbW9kZT1kaXNhYmxlJmNvbm5lY3Rpb25fbGltaXQ9MTAmY29ubmVjdF90aW1lb3V0PTAmbWF4X2lkbGVfY29ubmVjdGlvbl9saWZldGltZT0wJnBvb2xfdGltZW91dD0wJnNvY2tldF90aW1lb3V0PTAifQ\"; $env:DIRECT_URL=\"postgres://postgres:postgres@localhost:51214/template1?sslmode=disable\"; $env:NEXTAUTH_SECRET=\"FwKaCGbgCw944Sq4mmtPf3K0F4DeKaZl\"; $env:NEXTAUTH_URL=\"http://localhost:3000\"; npx next build 2>&1 | Select-Object -Last 30)",
+      "PowerShell(cd D:\\\\dev\\\\servicehub\\\\service-platform; $env:DATABASE_URL=\"prisma+postgres://localhost:51213/?api_key=eyJkYXRhYmFzZVVybCI6InBvc3RncmVzOi8vcG9zdGdyZXM6cG9zdGdyZXNAbG9jYWxob3N0OjUxMjE0L3RlbXBsYXRlMT9zc2xtb2RlPWRpc2FibGUmY29ubmVjdGlvbl9saW1pdD0xMCZjb25uZWN0X3RpbWVvdXQ9MCZtYXhfaWRsZV9jb25uZWN0aW9uX2xpZmV0aW1lPTAmcG9vbF90aW1lb3V0PTAmc29ja2V0X3RpbWVvdXQ9MCIsIm5hbWUiOiJkZWZhdWx0Iiwic2hhZG93RGF0YWJhc2VVcmwiOiJwb3N0Z3JlczovL3Bvc3RncmVzOnBvc3RncmVzQGxvY2FsaG9zdDo1MTIxNS90ZW1wbGF0ZTE_c3NsbW9kZT1kaXNhYmxlJmNvbm5lY3Rpb25fbGltaXQ9MTAmY29ubmVjdF90aW1lb3V0PTAmbWF4X2lkbGVfY29ubmVjdGlvbl9saWZldGltZT0wJnBvb2xfdGltZW91dD0wJnNvY2tldF90aW1lb3V0PTAifQ\"; $env:DIRECT_URL=\"postgres://postgres:postgres@localhost:51214/template1?sslmode=disable\"; $env:NEXTAUTH_SECRET=\"FwKaCGbgCw944Sq4mmtPf3K0F4DeKaZl\"; $env:NEXTAUTH_URL=\"http://localhost:3000\"; npx next build 2>&1 | Select-Object -Last 25)",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:3000/admin/login\" -UseBasicParsing | Select-Object StatusCode 2>&1)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/admin/login\" -UseBasicParsing; Write-Host $r.StatusCode } catch { Write-Host \"Error: $_\" })"
+    ]
+  }
+}
