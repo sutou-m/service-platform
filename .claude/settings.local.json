@@ -16,7 +16,9 @@
       "Bash(Get-ChildItem -Path \"D:\\\\dev\\\\servicehub\\\\service-platform\\\\app\" -Recurse -Force)",
       "Bash(Select-Object -Property FullName)",
       "Bash(Sort-Object FullName)",
-      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:3000/admin/login\" -UseBasicParsing | Select-Object -ExpandProperty StatusCode)"
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:3000/admin/login\" -UseBasicParsing | Select-Object -ExpandProperty StatusCode)",
+      "PowerShell(Start-Sleep -Seconds 4; Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing | Select-Object StatusCode)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing; Write-Host \"Status:\" $r.StatusCode } catch { Write-Host \"Error:\" $_.Exception.Message })"
     ]
   }
 }
