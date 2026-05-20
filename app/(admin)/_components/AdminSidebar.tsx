@@ -24,7 +24,7 @@ export function AdminSidebar({ open, onClose }: AdminSidebarProps) {
         // Base — fixed on mobile, static on desktop
         "fixed inset-y-0 left-0 z-40 flex w-60 shrink-0 flex-col bg-ink text-paper",
         "transition-transform duration-200 ease-in-out",
-        "lg:static lg:translate-x-0 lg:z-auto",
+        "lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:z-auto",
         open ? "translate-x-0" : "-translate-x-full"
       )}
     >

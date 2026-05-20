@@ -13,7 +13,7 @@ export function AdminShell({ children, userName }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-full overflow-hidden">
+    <div className="flex">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -28,12 +28,12 @@ export function AdminShell({ children, userName }: AdminShellProps) {
         onClose={() => setSidebarOpen(false)}
       />
 
-      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="flex min-w-0 flex-1 flex-col">
         <AdminHeader
           userName={userName}
           onMenuClick={() => setSidebarOpen((v) => !v)}
         />
-        <main className="flex-1 overflow-y-auto bg-background p-6">
+        <main className="flex-1 bg-background p-6 min-h-screen">
           {children}
         </main>
       </div>

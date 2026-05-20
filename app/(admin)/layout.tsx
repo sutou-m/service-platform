@@ -26,7 +26,7 @@ export default async function AdminLayout({
     session.user.name ?? session.user.email ?? "管理者";
 
   return (
-    <div className={`${notoSansJP.variable} flex flex-1 flex-col overflow-hidden`}>
+    <div className={`${notoSansJP.variable} flex flex-1 flex-col`}>
       <AdminShell userName={userName}>{children}</AdminShell>
     </div>
   );
