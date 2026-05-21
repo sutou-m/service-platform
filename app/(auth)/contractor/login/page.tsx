@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,6 +29,14 @@ export default function ContractorLoginPage() {
 
     if (result?.error) {
       setError("メールアドレスまたはパスワードが正しくありません。");
+      return;
+    }
+
+    // ロール確認：CONTRACTORロール以外はアクセス拒否
+    const session = await getSession();
+    if (session?.user?.role !== "CONTRACTOR") {
+      await signOut({ redirect: false });
+      setError("業者ポータルへのアクセス権限がありません。");
       return;
     }
 
@@ -61,7 +69,6 @@ export default function ContractorLoginPage() {
                 type="email"
                 autoComplete="email"
                 required
-                placeholder="contractor@example.com"
               />
             </div>
 
@@ -75,7 +82,6 @@ export default function ContractorLoginPage() {
                 type="password"
                 autoComplete="current-password"
                 required
-                placeholder="••••••••"
               />
             </div>
 

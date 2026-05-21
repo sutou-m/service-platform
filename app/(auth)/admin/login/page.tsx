@@ -61,7 +61,6 @@ export default function AdminLoginPage() {
                 type="email"
                 autoComplete="email"
                 required
-                placeholder="admin@example.com"
               />
             </div>
 
@@ -75,7 +74,6 @@ export default function AdminLoginPage() {
                 type="password"
                 autoComplete="current-password"
                 required
-                placeholder="••••••••"
               />
             </div>
 

@@ -7,6 +7,7 @@ import type { OrderStatus }     from "@/components/ui/status-badge";
 import { CreditLimitEditor }      from "./_components/CreditLimitEditor";
 import { ContractorStatusChanger } from "./_components/ContractorStatusChanger";
 import { ContractorInfoEditor }    from "./_components/ContractorInfoEditor";
+import { ContractorLoginPanel }    from "./_components/ContractorLoginPanel";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -48,6 +49,16 @@ export default async function AdminContractorDetailPage({ params }: Props) {
     created_at:   string;
     customers:    { name: string } | null;
   }>;
+
+  // リンク済みユーザー取得
+  const linkedUser = contractor.user_id
+    ? await supabaseAdmin
+        .from("users")
+        .select("id, email")
+        .eq("id", contractor.user_id)
+        .maybeSingle()
+        .then(({ data }) => data as { id: string; email: string } | null)
+    : null;
 
   const areas        = (contractor.areas        as string[]) ?? [];
   const serviceTypes = (contractor.service_types as string[]) ?? [];
@@ -126,7 +137,7 @@ export default async function AdminContractorDetailPage({ params }: Props) {
           </div>
         </div>
 
-        {/* 右: ステータス + クレジット */}
+        {/* 右: ステータス + クレジット + ログインアカウント */}
         <div className="space-y-6">
           <ContractorStatusChanger
             contractorId={contractor.id}
@@ -136,6 +147,10 @@ export default async function AdminContractorDetailPage({ params }: Props) {
             contractorId={contractor.id}
             creditBalance={contractor.credit_balance}
             creditLimit={contractor.credit_limit}
+          />
+          <ContractorLoginPanel
+            contractorId={contractor.id}
+            linkedUser={linkedUser}
           />
         </div>
       </div>

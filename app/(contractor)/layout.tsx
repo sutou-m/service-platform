@@ -1,6 +1,7 @@
 import { Noto_Sans_JP } from "next/font/google";
 import { redirect } from "next/navigation";
-import { getSession } from "@/lib/auth-helpers";
+import { getSession }    from "@/lib/auth-helpers";
+import { supabaseAdmin } from "@/lib/supabase";
 import { ContractorShell } from "./_components/ContractorShell";
 
 const notoSansJP = Noto_Sans_JP({
@@ -23,7 +24,14 @@ export default async function ContractorLayout({
     redirect("/contractor/login");
   }
 
-  const userName = session.user.name ?? session.user.email ?? "業者";
+  // 業者の会社名をDBから取得してヘッダーに表示
+  const { data: contractor } = await supabaseAdmin
+    .from("contractors")
+    .select("company_name")
+    .eq("user_id", session.user.id)
+    .maybeSingle();
+
+  const userName = contractor?.company_name ?? session.user.name ?? session.user.email ?? "業者";
 
   return (
     <div className={`${notoSansJP.variable} flex flex-1 flex-col`}>
