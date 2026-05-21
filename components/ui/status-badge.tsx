@@ -1,6 +1,32 @@
 import { Badge } from "./badge";
 import type { BadgeVariant } from "./badge";
 
+export type InquiryStatus = "NEW" | "CONVERTED" | "CLOSED";
+
+const INQUIRY_STATUS_CONFIG: Record<InquiryStatus, { label: string; variant: BadgeVariant }> = {
+  NEW:       { label: "新規",    variant: "info" },
+  CONVERTED: { label: "案件化済", variant: "success" },
+  CLOSED:    { label: "クローズ", variant: "default" },
+};
+
+export function InquiryStatusBadge({
+  status,
+  className,
+}: {
+  status: string;
+  className?: string;
+}) {
+  const config = INQUIRY_STATUS_CONFIG[status as InquiryStatus] ?? {
+    label: status,
+    variant: "default" as BadgeVariant,
+  };
+  return (
+    <Badge variant={config.variant} className={className}>
+      {config.label}
+    </Badge>
+  );
+}
+
 export type OrderStatus =
   | "NEW"
   | "VISIT_SCHEDULING"
