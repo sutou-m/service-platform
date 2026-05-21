@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 type Props = {
   title:        string;
@@ -114,9 +115,39 @@ export function CaseDetail({
         </div>
       )}
 
-      {/* 対応内容 */}
-      <div className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
-        {content}
+      {/* 対応内容（Markdown） */}
+      <div className="prose-case">
+        <ReactMarkdown
+          components={{
+            h1: ({ children }) => <h2 className="text-2xl font-bold text-ink mt-8 mb-3">{children}</h2>,
+            h2: ({ children }) => <h3 className="text-xl font-bold text-ink mt-7 mb-3">{children}</h3>,
+            h3: ({ children }) => <h4 className="text-base font-bold text-ink mt-6 mb-2">{children}</h4>,
+            p:  ({ children }) => <p className="text-sm text-foreground leading-relaxed mb-4">{children}</p>,
+            ul: ({ children }) => <ul className="list-disc list-outside pl-5 mb-4 space-y-1 text-sm text-foreground">{children}</ul>,
+            ol: ({ children }) => <ol className="list-decimal list-outside pl-5 mb-4 space-y-1 text-sm text-foreground">{children}</ol>,
+            li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+            strong: ({ children }) => <strong className="font-semibold text-ink">{children}</strong>,
+            em: ({ children }) => <em className="italic">{children}</em>,
+            hr: () => <hr className="my-6 border-border" />,
+            blockquote: ({ children }) => (
+              <blockquote className="border-l-2 border-border pl-4 my-4 text-sm text-muted italic">
+                {children}
+              </blockquote>
+            ),
+            code: ({ children }) => (
+              <code className="bg-accent px-1.5 py-0.5 rounded text-xs font-mono text-foreground">
+                {children}
+              </code>
+            ),
+            pre: ({ children }) => (
+              <pre className="bg-accent rounded p-4 overflow-x-auto text-xs font-mono mb-4">
+                {children}
+              </pre>
+            ),
+          }}
+        >
+          {content}
+        </ReactMarkdown>
       </div>
     </article>
   );

@@ -44,7 +44,7 @@ export function CasesGrid({ posts }: CasesGridProps) {
                 return (
                   <a
                     key={post.id}
-                    href={`/cases/${post.slug}`}
+                    href={`/cases/${post.id}`}
                     className={cn(
                       "group relative overflow-hidden bg-accent",
                       isLarge ? "md:col-span-2" : "md:col-span-1"
