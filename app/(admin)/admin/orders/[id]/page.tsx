@@ -45,6 +45,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
     { data: history },
     { data: contractors },
     { data: existingInvoice },
+    { data: rawReports },
   ] = await Promise.all([
     supabaseAdmin
       .from("orders")
@@ -68,6 +69,11 @@ export default async function AdminOrderDetailPage({ params }: Props) {
       .order("created_at", { ascending: false })
       .limit(1)
       .single(),
+    supabaseAdmin
+      .from("order_reports")
+      .select("id, worked_at, content, photo_urls, created_at, contractors(company_name)")
+      .eq("order_id", id)
+      .order("worked_at", { ascending: false }),
   ]);
 
   if (!order) notFound();
@@ -77,8 +83,21 @@ export default async function AdminOrderDetailPage({ params }: Props) {
     contractors: { id: string; company_name: string; owner_name: string } | null;
   };
 
+  type ReportRow = {
+    id:          string;
+    worked_at:   string;
+    content:     string;
+    photo_urls:  string[];
+    created_at:  string;
+    contractors: { company_name: string } | null;
+  };
+  const reports = (rawReports ?? []) as unknown as ReportRow[];
+
   const formatDt = (iso: string | null) =>
     iso ? new Date(iso).toLocaleString("ja-JP") : null;
+
+  const formatDate = (iso: string) =>
+    new Date(iso).toLocaleDateString("ja-JP", { year: "numeric", month: "short", day: "numeric" });
 
   return (
     <div className="space-y-6">
@@ -146,6 +165,48 @@ export default async function AdminOrderDetailPage({ params }: Props) {
               </ol>
             </div>
           )}
+          {/* 作業報告 */}
+          <div className="rounded-lg border border-border bg-surface p-6">
+            <h2 className="text-sm font-semibold text-foreground mb-4">
+              作業報告
+              <span className="ml-2 text-xs font-normal text-muted">{reports.length} 件</span>
+            </h2>
+
+            {reports.length === 0 ? (
+              <p className="text-sm text-muted">作業報告はまだありません</p>
+            ) : (
+              <div className="space-y-3">
+                {reports.map((report) => (
+                  <div key={report.id} className="rounded-lg border border-border p-4 space-y-2">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <div className="flex items-center gap-4 text-xs text-muted">
+                        <span>作業日：{formatDate(report.worked_at)}</span>
+                        {report.contractors?.company_name && (
+                          <span>担当：{report.contractors.company_name}</span>
+                        )}
+                      </div>
+                      <span className="text-xs text-muted">登録：{formatDate(report.created_at)}</span>
+                    </div>
+                    <p className="text-sm text-foreground whitespace-pre-wrap">{report.content}</p>
+                    {report.photo_urls.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {report.photo_urls.map((url, i) => (
+                          <a key={url} href={url} target="_blank" rel="noopener noreferrer">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={url}
+                              alt={`報告写真 ${i + 1}`}
+                              className="w-16 h-16 object-cover rounded border border-border hover:opacity-80 transition-opacity"
+                            />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* 右: 操作パネル */}

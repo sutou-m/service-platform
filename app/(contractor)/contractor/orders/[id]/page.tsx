@@ -5,6 +5,7 @@ import { supabaseAdmin }        from "@/lib/supabase";
 import { getContractorSession } from "@/lib/contractor-session";
 import { StatusBadge }          from "@/components/ui/status-badge";
 import type { OrderStatus }     from "@/components/ui/status-badge";
+import { ReportCardActions }    from "./_components/ReportCardActions";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -180,9 +181,12 @@ export default async function ContractorOrderDetailPage({ params }: Props) {
           <div className="space-y-3">
             {reports.map((report) => (
               <div key={report.id} className="rounded-lg border border-border bg-surface p-4">
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <p className="text-xs text-muted">作業日：{formatDate(report.worked_at)}</p>
-                  <p className="text-xs text-muted">登録：{formatDate(report.created_at)}</p>
+                <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                  <div className="flex items-center gap-4 text-xs text-muted">
+                    <span>作業日：{formatDate(report.worked_at)}</span>
+                    <span>登録：{formatDate(report.created_at)}</span>
+                  </div>
+                  <ReportCardActions reportId={report.id} orderId={order.id} />
                 </div>
                 <p className="text-sm text-foreground whitespace-pre-wrap">{report.content}</p>
                 {report.photo_urls.length > 0 && (
