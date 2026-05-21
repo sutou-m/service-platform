@@ -25,25 +25,36 @@ export async function convertToOrder(
   if (fetchError || !inquiry) return { error: "問い合わせが見つかりません" };
   if (inquiry.status === "CONVERTED") return { error: "すでに案件に変換済みです" };
 
-  // 顧客レコードがなければ作成
+  // 顧客レコードを取得または作成
   let customerId: string = inquiry.customer_id;
   if (!customerId) {
-    const { data: customer, error: custError } = await supabaseAdmin
+    // 同メールの既存顧客を先に検索
+    const { data: existing } = await supabaseAdmin
       .from("customers")
-      .insert({
-        name:    inquiry.name,
-        phone:   inquiry.phone,
-        email:   inquiry.email,
-        address: inquiry.address,
-      })
       .select("id")
+      .eq("email", inquiry.email)
       .single();
 
-    if (custError || !customer) {
-      console.error("[convertToOrder] customer insert:", custError?.code, custError?.message);
-      return { error: "顧客の作成に失敗しました" };
+    if (existing) {
+      customerId = existing.id;
+    } else {
+      const { data: customer, error: custError } = await supabaseAdmin
+        .from("customers")
+        .insert({
+          name:    inquiry.name,
+          phone:   inquiry.phone,
+          email:   inquiry.email,
+          address: inquiry.address,
+        })
+        .select("id")
+        .single();
+
+      if (custError || !customer) {
+        console.error("[convertToOrder] customer insert:", custError?.code, custError?.message);
+        return { error: "顧客の作成に失敗しました" };
+      }
+      customerId = customer.id;
     }
-    customerId = customer.id;
 
     await supabaseAdmin
       .from("inquiries")
