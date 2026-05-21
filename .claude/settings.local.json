@@ -18,7 +18,20 @@
       "Bash(Sort-Object FullName)",
       "PowerShell(Invoke-WebRequest -Uri \"http://localhost:3000/admin/login\" -UseBasicParsing | Select-Object -ExpandProperty StatusCode)",
       "PowerShell(Start-Sleep -Seconds 4; Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing | Select-Object StatusCode)",
-      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing; Write-Host \"Status:\" $r.StatusCode } catch { Write-Host \"Error:\" $_.Exception.Message })"
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing; Write-Host \"Status:\" $r.StatusCode } catch { Write-Host \"Error:\" $_.Exception.Message })",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)",
+      "Bash(curl -s http://localhost:3333/)",
+      "Bash(curl -s http://localhost:3000/)",
+      "PowerShell(New-Item *)",
+      "Bash(curl -s http://localhost:3000/contractor/login)",
+      "Bash(grep -E \"^zod$\")",
+      "Bash(curl -s http://localhost:3000/contact)",
+      "Bash(curl -s http://localhost:3000/contact/thanks)",
+      "mcp__supabase__list_projects",
+      "mcp__supabase__list_tables",
+      "mcp__supabase__execute_sql",
+      "mcp__supabase__apply_migration"
     ]
   }
 }
