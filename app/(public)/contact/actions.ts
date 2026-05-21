@@ -3,6 +3,9 @@
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase";
+import { sendEmail } from "@/lib/email/send";
+import { inquiryConfirmHtml } from "@/lib/email/templates/inquiry-confirm";
+import { inquiryNotifyHtml }  from "@/lib/email/templates/inquiry-notify";
 
 const phoneRegex = /^0\d{1,4}-\d{1,4}-\d{4}$/;
 
@@ -105,7 +108,33 @@ export async function submitContact(
     return { errors: { _form: ["送信に失敗しました。しばらく経ってから再度お試しください"] } };
   }
 
-  // TODO: Resend でメール通知 (#19)
+  const adminEmail = process.env.ADMIN_EMAIL ?? process.env.ADMIN_NOTIFY_EMAIL ?? "admin@servicehub.dev";
+
+  await Promise.all([
+    sendEmail({
+      to:      parsed.data.email,
+      subject: "【ServiceHub】お問い合わせを受け付けました",
+      html:    inquiryConfirmHtml({
+        name:        parsed.data.name,
+        workContent: parsed.data.workContent,
+        preferredAt: parsed.data.preferredAt,
+        notes:       parsed.data.notes,
+      }),
+    }),
+    sendEmail({
+      to:      adminEmail,
+      subject: "【ServiceHub】新規問い合わせが届きました",
+      html:    inquiryNotifyHtml({
+        name:         parsed.data.name,
+        email:        parsed.data.email,
+        phone:        parsed.data.phone,
+        address:      parsed.data.address,
+        workContent:  parsed.data.workContent,
+        preferredAt:  parsed.data.preferredAt,
+        notes:        parsed.data.notes,
+      }),
+    }),
+  ]);
 
   redirect("/contact/thanks");
 }

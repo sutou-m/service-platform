@@ -3,6 +3,8 @@
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase";
+import { sendEmail }       from "@/lib/email/send";
+import { applyNotifyHtml } from "@/lib/email/templates/apply-notify";
 
 const phoneRegex = /^0\d{1,4}-\d{1,4}-\d{4}$/;
 
@@ -71,6 +73,19 @@ export async function submitApply(
     );
     return { errors: { _form: ["送信に失敗しました。しばらく経ってから再度お試しください"] } };
   }
+
+  await sendEmail({
+    to:      process.env.ADMIN_EMAIL ?? process.env.ADMIN_NOTIFY_EMAIL ?? "admin@servicehub.dev",
+    subject: "【ServiceHub】新規業者申請が届きました",
+    html:    applyNotifyHtml({
+      companyName:  parsed.data.companyName,
+      ownerName:    parsed.data.ownerName,
+      email:        parsed.data.email,
+      phone:        parsed.data.phone,
+      areas:        parsed.data.areas,
+      serviceTypes: parsed.data.serviceTypes,
+    }),
+  });
 
   redirect("/apply/thanks");
 }
