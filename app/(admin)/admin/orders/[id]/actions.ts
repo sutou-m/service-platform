@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect }      from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabase";
 import { getSession }    from "@/lib/auth-helpers";
@@ -111,4 +112,56 @@ export async function updateOrderField(
 
   revalidatePath(`/admin/orders/${orderId}`);
   return { success: true };
+}
+
+export async function createInvoice(
+  _prev: ActionResult | null,
+  formData: FormData
+): Promise<ActionResult> {
+  const session = await getSession();
+  if (!session) return { error: "認証が必要です" };
+
+  const orderId = formData.get("orderId") as string;
+
+  // 既存請求書があればそちらへ遷移
+  const { data: existing } = await supabaseAdmin
+    .from("invoices")
+    .select("id")
+    .eq("order_id", orderId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .single();
+
+  if (existing) redirect(`/admin/invoices/${existing.id}`);
+
+  // 案件から顧客IDを取得
+  const { data: order } = await supabaseAdmin
+    .from("orders")
+    .select("customer_id")
+    .eq("id", orderId)
+    .single();
+
+  if (!order) return { error: "案件が見つかりません" };
+
+  const issueDate = new Date();
+  const dueDate   = new Date(issueDate);
+  dueDate.setDate(dueDate.getDate() + 30);
+
+  const { data: invoice, error } = await supabaseAdmin
+    .from("invoices")
+    .insert({
+      order_id:     orderId,
+      customer_id:  order.customer_id,
+      issue_date:   issueDate.toISOString(),
+      due_date:     dueDate.toISOString(),
+      total_amount: 0,
+      status:       "UNPAID",
+    })
+    .select("id")
+    .single();
+
+  if (error || !invoice) return { error: "請求書の作成に失敗しました" };
+
+  revalidatePath(`/admin/orders/${orderId}`);
+  redirect(`/admin/invoices/${invoice.id}`);
 }

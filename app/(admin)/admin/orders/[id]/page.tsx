@@ -7,6 +7,7 @@ import type { OrderStatus } from "@/components/ui/status-badge";
 import { StatusChanger }     from "./_components/StatusChanger";
 import { AssignContractor }  from "./_components/AssignContractor";
 import { OrderFieldsEditor } from "./_components/OrderFieldsEditor";
+import { InvoiceButton }     from "./_components/InvoiceButton";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -43,6 +44,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
     { data: order },
     { data: history },
     { data: contractors },
+    { data: existingInvoice },
   ] = await Promise.all([
     supabaseAdmin
       .from("orders")
@@ -59,6 +61,13 @@ export default async function AdminOrderDetailPage({ params }: Props) {
       .select("id, company_name")
       .eq("status", "ACTIVE")
       .order("company_name"),
+    supabaseAdmin
+      .from("invoices")
+      .select("id")
+      .eq("order_id", id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single(),
   ]);
 
   if (!order) notFound();
@@ -151,6 +160,14 @@ export default async function AdminOrderDetailPage({ params }: Props) {
               orderId={o.id}
               currentContractorId={o.contractor_id}
               contractors={(contractors ?? []) as Array<{ id: string; company_name: string }>}
+            />
+          </div>
+
+          {/* 請求書 */}
+          <div className="rounded-lg border border-border bg-surface p-5">
+            <InvoiceButton
+              orderId={o.id}
+              existingInvoiceId={existingInvoice?.id ?? null}
             />
           </div>
 
