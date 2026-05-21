@@ -20,26 +20,26 @@ app/(contractor)/profile/
 
 ### `page.tsx`（Server Component）
 
-- [ ] `getContractorSession()` で業者情報を取得
-- [ ] `ProfileView` と `CreditInfo` を配置
+- [x] `getContractorSession()` で業者情報を取得
+- [x] `ProfileView` と `CreditInfo` を配置
 
 ### `ProfileView`
 
-- [ ] 表示項目：会社名・代表者名・住所・電話番号・メールアドレス・対応エリア・作業種別・自己紹介
-- [ ] 「変更を申請する」ボタンで `ProfileEditForm` を開く（モーダルまたはインライン展開）
+- [x] 表示項目：会社名・代表者名・住所・電話番号・メールアドレス・対応エリア・作業種別・自己紹介
+- [x] 「変更を申請する」ボタンで `ProfileEditForm` を開く（モーダルまたはインライン展開）
 
 ### `ProfileEditForm`（Client Component）
 
-- [ ] 全フィールドを編集可能フォームで表示
-- [ ] 保存すると Server Action `requestProfileUpdate` を呼び出す
+- [x] 全フィールドを編集可能フォームで表示
+- [x] 保存すると Server Action `requestProfileUpdate` を呼び出す
   - `prisma.contractor.update` で情報を更新
   - 本番運用なら「変更申請」として別テーブルに保留するが、MVP では即時反映で OK
-- [ ] zod でバリデーション
+- [x] zod でバリデーション
 
 ### `CreditInfo`
 
-- [ ] 紹介料クレジット残高・上限を表示
-- [ ] 「残高 ○ 円 / 上限 ○ 円」の形式
+- [x] 紹介料クレジット残高・上限を表示
+- [x] 「残高 ○ 円 / 上限 ○ 円」の形式
 
 ### `actions.ts`
 

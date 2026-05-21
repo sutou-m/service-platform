@@ -32,30 +32,30 @@ app/(admin)/orders/
 
 ### `/admin/orders`（一覧）
 
-- [ ] `searchParams` から `status` / `contractorId` / `from` / `to` / `q`（顧客名）フィルタを取得
-- [ ] Prisma で案件を取得（`include: { customer: true, contractor: true }`）
-- [ ] `OrderFilters`：ステータス セレクト + 業者セレクト + 期間 DateRange + 顧客名テキスト
-- [ ] `OrderTable`：案件番号（`id` 先頭 8 文字）/ 顧客名 / ステータス / 担当業者 / 作業予定日 / 作成日
-- [ ] 「新規案件登録」ボタン
+- [x] `searchParams` から `status` / `contractorId` / `from` / `to` / `q`（顧客名）フィルタを取得
+- [x] Prisma で案件を取得（`include: { customer: true, contractor: true }`）
+- [x] `OrderFilters`：ステータス セレクト + 業者セレクト + 期間 DateRange + 顧客名テキスト
+- [x] `OrderTable`：案件番号（`id` 先頭 8 文字）/ 顧客名 / ステータス / 担当業者 / 作業予定日 / 作成日
+- [x] 「新規案件登録」ボタン
 
 ### `/admin/orders/new`（新規登録）
 
-- [ ] `OrderForm`：
+- [x] `OrderForm`：
   - 顧客選択（既存顧客からコンボボックス検索 or 新規顧客情報入力）
   - 作業内容・作業場所・訪問予定日時・作業予定日時
   - 担当業者（Contractor `ACTIVE` 一覧からセレクト、任意）
   - 内部メモ
-- [ ] Server Action `createOrder`：`prisma.order.create` + 最初の `OrderStatusHistory` レコード作成
+- [x] Server Action `createOrder`：`prisma.order.create` + 最初の `OrderStatusHistory` レコード作成
 
 ### `/admin/orders/[id]`（詳細）
 
-- [ ] 基本情報カード（顧客・担当業者・作業内容・日時）
-- [ ] ステータス履歴タイムライン
-- [ ] `StatusChanger`（Client Component）：ステータスをドロップダウンで変更 → Server Action `changeStatus`
+- [x] 基本情報カード（顧客・担当業者・作業内容・日時）
+- [x] ステータス履歴タイムライン
+- [x] `StatusChanger`（Client Component）：ステータスをドロップダウンで変更 → Server Action `changeStatus`
   - `OrderStatusHistory` にレコード追加
-- [ ] `AssignContractor`（Client Component）：業者を変更できるフォーム
-- [ ] 作業報告の一覧（`OrderReport`、写真サムネイル含む）
-- [ ] 紐付き請求書の表示（`Invoice`）と「請求書発行」ボタン → `/admin/invoices/new?orderId=...`
+- [x] `AssignContractor`（Client Component）：業者を変更できるフォーム
+- [x] 作業報告の一覧（`OrderReport`、写真サムネイル含む）
+- [x] 紐付き請求書の表示（`Invoice`）と「請求書発行」ボタン → `/admin/invoices/new?orderId=...`
 
 ### Server Actions
 

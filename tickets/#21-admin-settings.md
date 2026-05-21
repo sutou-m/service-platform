@@ -21,27 +21,27 @@ app/(admin)/settings/
 
 ### `AdminAccountsPanel`
 
-- [ ] 管理者アカウント一覧（メール・名前）を表示
-- [ ] 新規管理者追加フォーム（名前・メール・パスワード）
+- [x] 管理者アカウント一覧（メール・名前）を表示
+- [x] 新規管理者追加フォーム（名前・メール・パスワード）
   - Server Action `createAdmin`：bcrypt でパスワードハッシュ → `prisma.user.create`（`role: "ADMIN"`）
-- [ ] 管理者の削除（自分自身は削除不可）
+- [x] 管理者の削除（自分自身は削除不可）
 
 ### `NotifySettingsPanel`
 
-- [ ] 通知先メールアドレスの確認・変更フォーム
-- [ ] 環境変数 `ADMIN_NOTIFY_EMAIL` をここで管理する（ただし `.env` ではなく DB の設定テーブルに保存することを推奨）
+- [x] 通知先メールアドレスの確認・変更フォーム
+- [x] 環境変数 `ADMIN_NOTIFY_EMAIL` をここで管理する（ただし `.env` ではなく DB の設定テーブルに保存することを推奨）
   - `SystemConfig` テーブルをスキーマに追加（`key: String @unique, value: String`）
   - `prisma.systemConfig.upsert` で更新
 
 ### `ServiceTypesPanel`
 
-- [ ] サービス種別マスタ（`lib/data/service-types.ts` の定数）の確認用表示
-- [ ] MVP 段階ではコード定数で管理し、DB 管理への移行は後回し
+- [x] サービス種別マスタ（`lib/data/service-types.ts` の定数）の確認用表示
+- [x] MVP 段階ではコード定数で管理し、DB 管理への移行は後回し
 
 ### ページ構成
 
-- [ ] タブ UI（ページ内タブ、`searchParams.tab` で制御）
-- [ ] ナビゲーション：「アカウント管理」「メール通知」「サービス種別」
+- [x] タブ UI（ページ内タブ、`searchParams.tab` で制御）
+- [x] ナビゲーション：「アカウント管理」「メール通知」「サービス種別」
 
 ## 依存チケット
 

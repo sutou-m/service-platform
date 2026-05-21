@@ -21,24 +21,24 @@ app/(public)/cases/
 
 ### `/cases`（事例一覧 - `page.tsx`）
 
-- [ ] Prisma で `published: true` の CmsPost を全件取得（`orderBy: createdAt desc`）
-- [ ] BRUTUS 風の大小混在グリッド（#08 の `CasesGrid` を流用または同様に実装）
-- [ ] 件数 0 の場合は「事例を準備中です」表示
-- [ ] `export const revalidate = 60`（ISR：1 分ごとに再生成）
+- [x] Prisma で `published: true` の CmsPost を全件取得（`orderBy: createdAt desc`）
+- [x] BRUTUS 風の大小混在グリッド（#08 の `CasesGrid` を流用または同様に実装）
+- [x] 件数 0 の場合は「事例を準備中です」表示
+- [x] `export const revalidate = 60`（ISR：1 分ごとに再生成）
 
 ### `CaseCard`
 
-- [ ] 正方形サムネイル（`aspect-square`）に `next/image` で表示
-- [ ] タイトル・エリア・完了日を下部に表示
-- [ ] `href="/cases/[id]"` のリンクカード
+- [x] 正方形サムネイル（`aspect-square`）に `next/image` で表示
+- [x] タイトル・エリア・完了日を下部に表示
+- [x] `href="/cases/[id]"` のリンクカード
 
 ### `/cases/[id]`（事例詳細）
 
-- [ ] `generateStaticParams`：`published: true` の全スラッグを返す
-- [ ] 対応内容テキスト・画像ギャラリー（複数画像を横スクロール or グリッド）・担当エリア・完了日を表示
-- [ ] 存在しない id → `notFound()` を返す
-- [ ] OGP `metadata` を動的生成（`generateMetadata`）
-- [ ] 「← 事例一覧に戻る」リンク
+- [x] `generateStaticParams`：`published: true` の全スラッグを返す
+- [x] 対応内容テキスト・画像ギャラリー（複数画像を横スクロール or グリッド）・担当エリア・完了日を表示
+- [x] 存在しない id → `notFound()` を返す
+- [x] OGP `metadata` を動的生成（`generateMetadata`）
+- [x] 「← 事例一覧に戻る」リンク
 
 ## デザイン制約
 

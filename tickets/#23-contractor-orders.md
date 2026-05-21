@@ -36,23 +36,23 @@ export async function getContractorSession() {
 
 ### `/contractor`（案件一覧）
 
-- [ ] `getContractorSession()` で業者を取得
-- [ ] `where: { contractorId: contractor.id }` で自社案件のみ取得
-- [ ] `searchParams.status` でフィルタ（全て / 作業予定 / 作業中 / 作業完了）
-- [ ] `ContractorOrderTable`：作業内容 / 作業場所 / 作業予定日 / ステータス
-- [ ] 各行の「詳細」ボタンで `/contractor/orders/[id]` へ
+- [x] `getContractorSession()` で業者を取得
+- [x] `where: { contractorId: contractor.id }` で自社案件のみ取得
+- [x] `searchParams.status` でフィルタ（全て / 作業予定 / 作業中 / 作業完了）
+- [x] `ContractorOrderTable`：作業内容 / 作業場所 / 作業予定日 / ステータス
+- [x] 各行の「詳細」ボタンで `/contractor/orders/[id]` へ
 
 ### `/contractor/orders/[id]`（案件詳細）
 
-- [ ] `getContractorSession()` で業者を取得し、`order.contractorId !== contractor.id` なら 404
-- [ ] 表示項目（閲覧のみ）：
+- [x] `getContractorSession()` で業者を取得し、`order.contractorId !== contractor.id` なら 404
+- [x] 表示項目（閲覧のみ）：
   - 作業内容
   - 作業場所
   - 訪問予定日時・作業予定日時
   - 顧客連絡先（氏名・電話番号・メールアドレス）
   - ステータス
-- [ ] 「作業報告を登録する」ボタン → `/contractor/orders/[id]/report`（#24）
-- [ ] 既存の作業報告一覧（自社分のみ）を下部に表示
+- [x] 「作業報告を登録する」ボタン → `/contractor/orders/[id]/report`（#24）
+- [x] 既存の作業報告一覧（自社分のみ）を下部に表示
 
 ## 制約
 

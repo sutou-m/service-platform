@@ -37,7 +37,9 @@
       "PowerShell(cd D:\\\\dev\\\\servicehub\\\\service-platform; npx tsc --noEmit 2>&1 | Where-Object { $_ -notmatch \"prisma.config.ts\" })",
       "Bash(Test-Path *)",
       "Bash(npm install *)",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "Bash(Get-ChildItem -Path \"D:\\\\dev\\\\servicehub\\\\service-platform\\\\app\" -Directory)",
+      "Bash(Select-Object -ExpandProperty Name)"
     ]
   }
 }

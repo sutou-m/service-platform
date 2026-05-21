@@ -35,8 +35,8 @@ lib/
 
 ### `/admin/invoices`（請求一覧）
 
-- [ ] `InvoiceFilters`：期間（from/to）+ 入金状況（UNPAID / PARTIAL / PAID）フィルタ
-- [ ] `InvoiceTable`：請求番号 / 顧客名 / 発行日 / 金額 / 入金状況
+- [x] `InvoiceFilters`：期間（from/to）+ 入金状況（UNPAID / PARTIAL / PAID）フィルタ
+- [x] `InvoiceTable`：請求番号 / 顧客名 / 発行日 / 金額 / 入金状況
 - [ ] 売上サマリー（月別）は月別に `groupBy` で集計してテキスト表示（グラフは #16 の TODO に追従）
 
 ### `/admin/invoices/new`（請求書作成）
@@ -46,14 +46,14 @@ lib/
   - 案件選択（未請求の Order から）
   - 請求明細行（複数行追加・削除）：説明 / 数量 / 単価 → 合計自動計算
   - 発行日・支払期限
-- [ ] Server Action `createInvoice`：`prisma.invoice.create` + `InvoiceItem` まとめて作成
+- [x] Server Action `createInvoice`：`prisma.invoice.create` + `InvoiceItem` まとめて作成
 
 ### `/admin/invoices/[id]`（請求詳細）
 
-- [ ] 請求情報の確認・編集（`InvoiceEditor`）
-- [ ] `PaymentForm`：入金日・金額・備考を登録する Server Action フォーム
+- [x] 請求情報の確認・編集（`InvoiceEditor`）
+- [x] `PaymentForm`：入金日・金額・備考を登録する Server Action フォーム
   - `prisma.payment.create` + Invoice の `status` を再計算（PARTIAL / PAID）
-- [ ] `InvoicePdfButton`（Client Component）：「PDF 出力」ボタン
+- [x] `InvoicePdfButton`（Client Component）：「PDF 出力」ボタン
 
 ### PDF 生成（`lib/pdf/`）
 

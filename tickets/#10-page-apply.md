@@ -33,9 +33,9 @@ app/(public)/apply/
 | 対応可能作業種別 | checkbox group | 1 つ以上選択必須 |
 | 自己紹介・実績 | textarea | 任意 |
 
-- [ ] エリア・作業種別の選択肢は `lib/data/service-types.ts` の定数から生成
-- [ ] `useActionState` でフォーム送信状態を管理
-- [ ] 送信中は Submit ボタンを disabled＋Spinner
+- [x] エリア・作業種別の選択肢は `lib/data/service-types.ts` の定数から生成
+- [x] `useActionState` でフォーム送信状態を管理
+- [x] 送信中は Submit ボタンを disabled＋Spinner
 
 ### `actions.ts`（Server Action）
 
@@ -44,13 +44,13 @@ app/(public)/apply/
 export async function submitApply(formData: FormData): Promise<ActionResult>
 ```
 
-- [ ] zod でバリデーション
-- [ ] `prisma.contractor.create`（`status: "PENDING"`）で保存
-- [ ] 成功時 → `/apply/thanks` にリダイレクト
+- [x] zod でバリデーション
+- [x] `prisma.contractor.create`（`status: "PENDING"`）で保存
+- [x] 成功時 → `/apply/thanks` にリダイレクト
 
 ### `/apply/thanks`
 
-- [ ] 申請受付メッセージを表示（「審査後、登録メールアドレスにご連絡します」）
+- [x] 申請受付メッセージを表示（「審査後、登録メールアドレスにご連絡します」）
 
 ## 依存チケット
 

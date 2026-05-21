@@ -18,16 +18,16 @@ app/(contractor)/login/
 
 ### `ContractorLoginForm`（Client Component）
 
-- [ ] メールアドレス・パスワードの入力フォーム
-- [ ] `signIn("credentials", { email, password, callbackUrl: "/contractor" })` を呼び出し
-- [ ] エラー時はメッセージ表示
-- [ ] 送信中は Button を disabled + Spinner
+- [x] メールアドレス・パスワードの入力フォーム
+- [x] `signIn("credentials", { email, password, callbackUrl: "/contractor" })` を呼び出し
+- [x] エラー時はメッセージ表示
+- [x] 送信中は Button を disabled + Spinner
 
 ### `page.tsx`
 
-- [ ] ページ中央にカードレイアウト（`min-h-screen flex items-center justify-center bg-paper`）
-- [ ] 「ServiceHub 業者ポータル」の見出し
-- [ ] このページは `/(contractor)/layout.tsx` のセッションチェックをバイパスさせること
+- [x] ページ中央にカードレイアウト（`min-h-screen flex items-center justify-center bg-paper`）
+- [x] 「ServiceHub 業者ポータル」の見出し
+- [x] このページは `/(contractor)/layout.tsx` のセッションチェックをバイパスさせること
 
 ## 依存チケット
 

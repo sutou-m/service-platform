@@ -23,15 +23,15 @@ app/(admin)/login/
 
 ### `LoginForm`（Client Component）
 
-- [ ] メールアドレス・パスワードの入力フォーム
-- [ ] `signIn("credentials", { email, password, callbackUrl: "/admin" })` を呼び出し
-- [ ] エラー時（`?error=CredentialsSignin`）はエラーメッセージを表示
-- [ ] 送信中は Button を disabled + Spinner
+- [x] メールアドレス・パスワードの入力フォーム
+- [x] `signIn("credentials", { email, password, callbackUrl: "/admin" })` を呼び出し
+- [x] エラー時（`?error=CredentialsSignin`）はエラーメッセージを表示
+- [x] 送信中は Button を disabled + Spinner
 
 ### `page.tsx`
 
-- [ ] ページ中央にカードレイアウトでフォームを配置（`min-h-screen flex items-center justify-center bg-paper`）
-- [ ] 「ServiceHub 管理画面」の見出し
+- [x] ページ中央にカードレイアウトでフォームを配置（`min-h-screen flex items-center justify-center bg-paper`）
+- [x] 「ServiceHub 管理画面」の見出し
 
 ## 依存チケット
 

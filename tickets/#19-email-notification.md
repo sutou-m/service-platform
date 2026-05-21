@@ -23,22 +23,22 @@ lib/
 
 ### Resend クライアント（`lib/email/client.ts`）
 
-- [ ] `resend` パッケージを追加（`npm install resend`）
-- [ ] `RESEND_API_KEY` 環境変数から初期化するシングルトン
+- [x] `resend` パッケージを追加（`npm install resend`）
+- [x] `RESEND_API_KEY` 環境変数から初期化するシングルトン
 
 ### メールテンプレート（React Email）
 
 - [ ] `@react-email/components` パッケージを追加
-- [ ] `inquiry-confirm.tsx`：
+- [x] `inquiry-confirm.tsx`：
   - 件名「【ServiceHub】お問い合わせを受け付けました」
   - 顧客の入力内容サマリー（氏名・作業内容・希望日時）を本文に含める
-- [ ] `inquiry-notify.tsx`：
+- [x] `inquiry-notify.tsx`：
   - 件名「【ServiceHub】新規問い合わせが届きました」
   - 管理者通知先アドレスへ送信
-- [ ] `contractor-approved.tsx`：
+- [x] `contractor-approved.tsx`：
   - 件名「【ServiceHub】業者登録が承認されました」
   - ログイン URL・初期パスワードを本文に含める
-- [ ] `report-notify.tsx`：
+- [x] `report-notify.tsx`：
   - 件名「【ServiceHub】作業報告が登録されました」
 
 ### `sendEmail` ヘルパー（`lib/email/send.ts`）
@@ -51,15 +51,15 @@ export async function sendEmail(options: {
 }): Promise<void>
 ```
 
-- [ ] `resend.emails.send` を呼び出す
+- [x] `resend.emails.send` を呼び出す
 - [ ] 送信結果を `prisma.notification.create` でログ記録（成功・失敗どちらも）
-- [ ] 失敗時は例外をスローせずコンソールエラーのみ（メール失敗でユーザー操作をブロックしない）
+- [x] 失敗時は例外をスローせずコンソールエラーのみ（メール失敗でユーザー操作をブロックしない）
 
 ### トリガーポイントの有効化
 
-- [ ] `app/(public)/contact/actions.ts`：問い合わせ送信後に `inquiry-confirm` と `inquiry-notify` を送信
-- [ ] `app/(admin)/contractors/applications/actions.ts`：業者承認後に `contractor-approved` を送信
-- [ ] `app/(contractor)/orders/[id]/report/actions.ts`：作業報告登録後に `report-notify` を管理者へ送信
+- [x] `app/(public)/contact/actions.ts`：問い合わせ送信後に `inquiry-confirm` と `inquiry-notify` を送信
+- [x] `app/(admin)/contractors/applications/actions.ts`：業者承認後に `contractor-approved` を送信
+- [x] `app/(contractor)/orders/[id]/report/actions.ts`：作業報告登録後に `report-notify` を管理者へ送信
 
 ## 環境変数
 

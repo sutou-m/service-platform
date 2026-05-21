@@ -36,24 +36,24 @@ const [todayCount, statusCounts, unpaid, recentInquiries] = await Promise.all([
 
 ### `SummaryCards`
 
-- [ ] 本日の新規問い合わせ件数（カード）
-- [ ] ステータス別案件数（新規 / 対応中 / 完了 / 請求済）を各カードで表示
-- [ ] カードは `Card` コンポーネントを使用、数値を大きく表示
+- [x] 本日の新規問い合わせ件数（カード）
+- [x] ステータス別案件数（新規 / 対応中 / 完了 / 請求済）を各カードで表示
+- [x] カードは `Card` コンポーネントを使用、数値を大きく表示
 
 ### `UnpaidSummary`
 
-- [ ] 未入金件数と合計金額を表示
-- [ ] 請求一覧（`/admin/invoices?status=UNPAID`）へのリンク
+- [x] 未入金件数と合計金額を表示
+- [x] 請求一覧（`/admin/invoices?status=UNPAID`）へのリンク
 
 ### `RecentInquiriesTable`
 
-- [ ] 最近 5 件の問い合わせを Table で表示（氏名 / 作業内容 / 受付日時 / ステータス）
-- [ ] 各行に詳細リンク
+- [x] 最近 5 件の問い合わせを Table で表示（氏名 / 作業内容 / 受付日時 / ステータス）
+- [x] 各行に詳細リンク
 
 ### 売上グラフ（TODO）
 
-- [ ] グラフ描画部分は `{/* TODO: 売上グラフ (#16-chart) */}` のコメントプレースホルダーで残す
-- [ ] Chart.js または Recharts を後のチケットで追加予定
+- [x] グラフ描画部分は `{/* TODO: 売上グラフ (#16-chart) */}` のコメントプレースホルダーで残す
+- [x] Chart.js または Recharts を後のチケットで追加予定
 
 ## 依存チケット
 

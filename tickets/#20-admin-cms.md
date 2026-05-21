@@ -30,9 +30,9 @@ app/(admin)/cms/
 
 ### `/admin/cms`（事例一覧）
 
-- [ ] `searchParams.published`（`true` / `false`）でタブ切替
-- [ ] `CmsPostTable`：タイトル / エリア / 作業種別 / 公開状態 / 作成日
-- [ ] 「新規作成」ボタン
+- [x] `searchParams.published`（`true` / `false`）でタブ切替
+- [x] `CmsPostTable`：タイトル / エリア / 作業種別 / 公開状態 / 作成日
+- [x] 「新規作成」ボタン
 
 ### `CmsPostForm`（新規・編集共通、Client Component）
 
@@ -49,18 +49,18 @@ app/(admin)/cms/
 | 完了日 | date | 任意 |
 | 画像 | file（multiple） | 任意・JPEG/PNG・最大 10 枚 |
 
-- [ ] 画像は Supabase Storage（`cms/` バケット）にアップロード
-- [ ] 既存画像はプレビュー表示＋削除ボタン
+- [x] 画像は Supabase Storage（`cms/` バケット）にアップロード
+- [x] 既存画像はプレビュー表示＋削除ボタン
 
 ### `PublishToggle`（Client Component）
 
-- [ ] `published` を切り替えるトグルスイッチ
-- [ ] Server Action `togglePublish`
+- [x] `published` を切り替えるトグルスイッチ
+- [x] Server Action `togglePublish`
 
 ### `DeleteButton`（Client Component）
 
-- [ ] 確認ダイアログ（`window.confirm` またはカスタム Modal）を出してから削除
-- [ ] Server Action `deletePost`：Supabase Storage の画像も合わせて削除
+- [x] 確認ダイアログ（`window.confirm` またはカスタム Modal）を出してから削除
+- [x] Server Action `deletePost`：Supabase Storage の画像も合わせて削除
 
 ### Server Actions
 

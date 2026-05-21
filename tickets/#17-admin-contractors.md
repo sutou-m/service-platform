@@ -28,8 +28,8 @@ app/(admin)/contractors/
 
 ### `/admin/contractors/applications`（申請一覧）
 
-- [ ] `status: "PENDING"` の Contractor を一覧表示
-- [ ] `ApplicationActions`（Client Component）：
+- [x] `status: "PENDING"` の Contractor を一覧表示
+- [x] `ApplicationActions`（Client Component）：
   - 「承認」ボタン → Server Action `approveContractor`
     - `status: "ACTIVE"` に更新
     - NextAuth の User を作成し `Contractor.userId` に紐付け（ランダムパスワードを生成してメールで通知 → #19 メール通知）
@@ -37,16 +37,16 @@ app/(admin)/contractors/
 
 ### `/admin/contractors`（業者一覧）
 
-- [ ] `searchParams.status`（`ACTIVE` / `INACTIVE`）でフィルタ
-- [ ] `ContractorTable`：会社名 / 担当者名 / エリア / 担当案件数 / ステータス
+- [x] `searchParams.status`（`ACTIVE` / `INACTIVE`）でフィルタ
+- [x] `ContractorTable`：会社名 / 担当者名 / エリア / 担当案件数 / ステータス
 
 ### `/admin/contractors/[id]`（業者詳細）
 
-- [ ] 基本情報（会社名・担当者名・住所・電話・メール・対応エリア・作業種別・自己紹介）
-- [ ] 担当案件一覧（直近 10 件、ステータス付き）
-- [ ] 紹介料クレジット残高・上限
-- [ ] `CreditLimitForm`：クレジット上限額を設定する Server Action フォーム
-- [ ] `ContractorStatusToggle`：ACTIVE ↔ INACTIVE を切り替えるトグルボタン
+- [x] 基本情報（会社名・担当者名・住所・電話・メール・対応エリア・作業種別・自己紹介）
+- [x] 担当案件一覧（直近 10 件、ステータス付き）
+- [x] 紹介料クレジット残高・上限
+- [x] `CreditLimitForm`：クレジット上限額を設定する Server Action フォーム
+- [x] `ContractorStatusToggle`：ACTIVE ↔ INACTIVE を切り替えるトグルボタン
 
 ### Server Actions
 

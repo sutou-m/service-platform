@@ -23,22 +23,22 @@ app/(admin)/inquiries/
 
 ### `/admin/inquiries`（一覧）
 
-- [ ] 検索クエリ（`searchParams`）から `status` フィルタを取得
-- [ ] Prisma で問い合わせを新着順取得（`include: { customer: true }`）
-- [ ] `StatusFilter`：NEW / CONVERTED / CLOSED のタブ or セレクト UI
-- [ ] `InquiryTable`：氏名 / 電話番号 / 作業内容 / 受付日時 / ステータス のカラム
+- [x] 検索クエリ（`searchParams`）から `status` フィルタを取得
+- [x] Prisma で問い合わせを新着順取得（`include: { customer: true }`）
+- [x] `StatusFilter`：NEW / CONVERTED / CLOSED のタブ or セレクト UI
+- [x] `InquiryTable`：氏名 / 電話番号 / 作業内容 / 受付日時 / ステータス のカラム
   - 行クリックで詳細ページへ遷移
 
 ### `/admin/inquiries/[id]`（詳細）
 
-- [ ] 問い合わせの全フィールド表示（氏名・電話・メール・住所・作業内容・希望日時・備考）
-- [ ] 添付写真をギャラリー表示（`next/image`）
-- [ ] `InquiryActions`（Client Component）：
+- [x] 問い合わせの全フィールド表示（氏名・電話・メール・住所・作業内容・希望日時・備考）
+- [x] 添付写真をギャラリー表示（`next/image`）
+- [x] `InquiryActions`（Client Component）：
   - 「案件に変換」ボタン → Server Action `convertToOrder` を呼び出す
     - `prisma.order.create` で案件を作成し、`inquiry.status` を `CONVERTED` に更新
     - 作成した案件の詳細ページ（`/admin/orders/[id]`）にリダイレクト
   - ステータス変更ボタン（CLOSED 等）
-- [ ] `MemoForm`：対応メモを textarea で追記できる Server Action フォーム
+- [x] `MemoForm`：対応メモを textarea で追記できる Server Action フォーム
 
 ### API Route or Server Action
 

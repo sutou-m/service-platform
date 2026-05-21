@@ -27,9 +27,9 @@ app/(contractor)/orders/[id]/report/
 | 作業内容 | textarea | 必須 |
 | 写真 | file（multiple） | 任意・JPEG/PNG・最大 10 枚・1 枚 10MB 以下 |
 
-- [ ] 写真は Supabase Storage（`reports/` バケット）にアップロード
-- [ ] `useActionState` で送信状態を管理
-- [ ] 送信中は Submit ボタンを disabled + Spinner
+- [x] 写真は Supabase Storage（`reports/` バケット）にアップロード
+- [x] `useActionState` で送信状態を管理
+- [x] 送信中は Submit ボタンを disabled + Spinner
 
 ### `actions.ts`（Server Action）
 
@@ -38,18 +38,18 @@ app/(contractor)/orders/[id]/report/
 export async function submitReport(orderId: string, formData: FormData): Promise<ActionResult>
 ```
 
-- [ ] `getContractorSession()` で業者を確認（自社案件か検証）
-- [ ] zod でバリデーション
-- [ ] 写真を Supabase Storage にアップロード
-- [ ] `prisma.orderReport.create` で保存
-- [ ] `order.status` が `WORK_SCHEDULED` の場合は `WORKING` に自動遷移（`OrderStatusHistory` も追加）
-- [ ] `sendEmail(reportNotify(...))` で管理者に通知（#19 実装後にアンコメント）
-- [ ] 成功時 → `/contractor/orders/[id]` にリダイレクト
+- [x] `getContractorSession()` で業者を確認（自社案件か検証）
+- [x] zod でバリデーション
+- [x] 写真を Supabase Storage にアップロード
+- [x] `prisma.orderReport.create` で保存
+- [x] `order.status` が `WORK_SCHEDULED` の場合は `WORKING` に自動遷移（`OrderStatusHistory` も追加）
+- [x] `sendEmail(reportNotify(...))` で管理者に通知（#19 実装後にアンコメント）
+- [x] 成功時 → `/contractor/orders/[id]` にリダイレクト
 
 ### `page.tsx`
 
-- [ ] 案件情報（作業内容・作業場所）を上部に表示
-- [ ] `ReportForm` を配置
+- [x] 案件情報（作業内容・作業場所）を上部に表示
+- [x] `ReportForm` を配置
 
 ## 依存チケット
 

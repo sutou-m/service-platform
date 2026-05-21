@@ -20,14 +20,14 @@ types/next-auth.d.ts      # セッション型拡張
 ### NextAuth 設定（`lib/auth.ts`）
 
 - [ ] `PrismaAdapter` を使用（`@auth/prisma-adapter` パッケージを追加）
-- [ ] Provider: **Credentials**（メール＋パスワード）のみ
+- [x] Provider: **Credentials**（メール＋パスワード）のみ
   - `authorize` でメールアドレスと bcrypt ハッシュ済みパスワードを照合
   - 認証成功時に `role` をトークンに付与
-- [ ] `callbacks.jwt`：`role` をトークンに保持
-- [ ] `callbacks.session`：`session.user.role` に `token.role` を反映
-- [ ] `pages.signIn` を `/admin/login`（Admin）と `/contractor/login`（Contractor）に分ける
+- [x] `callbacks.jwt`：`role` をトークンに保持
+- [x] `callbacks.session`：`session.user.role` に `token.role` を反映
+- [x] `pages.signIn` を `/admin/login`（Admin）と `/contractor/login`（Contractor）に分ける
   - ログインページ URL によって適切な signIn ページにリダイレクトする設定
-- [ ] `session.strategy: "jwt"`
+- [x] `session.strategy: "jwt"`
 
 ### 型拡張（`types/next-auth.d.ts`）
 
@@ -44,18 +44,18 @@ declare module "next-auth" {
 
 ### ルート保護（`middleware.ts`）
 
-- [ ] `/admin/*` パスは `role === "ADMIN"` のみ許可、未認証は `/admin/login` へリダイレクト
-- [ ] `/contractor/*` パスは `role === "CONTRACTOR"` のみ許可、未認証は `/contractor/login` へリダイレクト
+- [x] `/admin/*` パスは `role === "ADMIN"` のみ許可、未認証は `/admin/login` へリダイレクト
+- [x] `/contractor/*` パスは `role === "CONTRACTOR"` のみ許可、未認証は `/contractor/login` へリダイレクト
 - [ ] `matcher` に公開パス（`/`、`/cases/*`、`/contact/*`、`/apply/*`、`/api/auth/*`）は含めない
 
 ### パスワードハッシュ
 
-- [ ] `bcryptjs` パッケージを追加（`@types/bcryptjs` も）
-- [ ] `lib/auth-helpers.ts` に `hashPassword` / `verifyPassword` ヘルパーを実装
+- [x] `bcryptjs` パッケージを追加（`@types/bcryptjs` も）
+- [x] `lib/auth-helpers.ts` に `hashPassword` / `verifyPassword` ヘルパーを実装
 
 ### API Route（`app/api/auth/[...nextauth]/route.ts`）
 
-- [ ] `lib/auth.ts` の options をインポートして `GET` / `POST` をエクスポート
+- [x] `lib/auth.ts` の options をインポートして `GET` / `POST` をエクスポート
 
 ## 環境変数（`.env.local`）
 

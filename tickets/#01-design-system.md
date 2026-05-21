@@ -62,7 +62,7 @@ RootLayout（`app/layout.tsx`）は **一切編集しない**。
 
 ### フォント設定
 
-- [ ] `next/font/google` で `Noto_Sans_JP` と `Noto_Serif_JP` を読み込む（#05/#06/#07 で実装）
+- [x] `next/font/google` で `Noto_Sans_JP` と `Noto_Serif_JP` を読み込む（#05/#06/#07 で実装）
   - **追加場所は `app/(public)/layout.tsx` および `app/(admin)/layout.tsx`**（RootLayout には追加しない）
   - CSS 変数 `--font-noto-sans` / `--font-noto-serif` に注入する（globals.css の @theme inline で参照済み）
 

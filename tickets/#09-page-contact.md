@@ -34,10 +34,10 @@ app/(public)/contact/
 | 備考 | textarea | 任意 |
 | 写真 | file（multiple） | 任意・JPEG/PNG・最大 5 枚・1 枚 5MB 以下 |
 
-- [ ] React の `useActionState`（Next.js 16 / React 19 の新 hook）でフォーム送信状態を管理
-- [ ] バリデーションはサーバーサイド（Server Action）で行い、エラーをフォームに表示
-- [ ] 送信中は Submit ボタンを `Spinner` 付きで disabled にする
-- [ ] 写真アップロードは Supabase Storage（`inquiries/` バケット）に保存し、URLを DB に記録
+- [x] React の `useActionState`（Next.js 16 / React 19 の新 hook）でフォーム送信状態を管理
+- [x] バリデーションはサーバーサイド（Server Action）で行い、エラーをフォームに表示
+- [x] 送信中は Submit ボタンを `Spinner` 付きで disabled にする
+- [x] 写真アップロードは Supabase Storage（`inquiries/` バケット）に保存し、URLを DB に記録
 
 ### `actions.ts`（Server Action）
 
@@ -46,17 +46,17 @@ app/(public)/contact/
 export async function submitContact(formData: FormData): Promise<ActionResult>
 ```
 
-- [ ] zod でバリデーション（`zod` パッケージ追加）
-- [ ] 写真を Supabase Storage にアップロードして URL 配列を取得
-- [ ] `prisma.inquiry.create` で保存
-- [ ] Resend でメール送信（#19 メール通知チケットの実装後にアンコメント、今は TODO コメントのみ）
-- [ ] 成功時 → `/contact/thanks` にリダイレクト
-- [ ] 失敗時 → `{ errors: {...} }` を返してフォームに再表示
+- [x] zod でバリデーション（`zod` パッケージ追加）
+- [x] 写真を Supabase Storage にアップロードして URL 配列を取得
+- [x] `prisma.inquiry.create` で保存
+- [x] Resend でメール送信（#19 メール通知チケットの実装後にアンコメント、今は TODO コメントのみ）
+- [x] 成功時 → `/contact/thanks` にリダイレクト
+- [x] 失敗時 → `{ errors: {...} }` を返してフォームに再表示
 
 ### `/contact/thanks`
 
-- [ ] 送信完了メッセージを表示
-- [ ] 「トップへ戻る」リンク
+- [x] 送信完了メッセージを表示
+- [x] 「トップへ戻る」リンク
 
 ## 環境変数
 
