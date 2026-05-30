@@ -10,10 +10,8 @@ export function HeroSection() {
           依頼から完了まで、ひとつの場所で。
         </h1>
 
-        <p className="text-base md:text-lg text-muted max-w-sm mb-12 leading-relaxed">
-          リフォーム・清掃・引越しなど、暮らしのサービスを
-          <br />
-          信頼できる専門業者に簡単に依頼できます。
+        <p className="text-base md:text-lg text-muted max-w-lg mb-12 leading-relaxed">
+          リフォーム・清掃・引越しなど、暮らしのサービスを信頼できる専門業者に簡単に依頼できます。
         </p>
 
         <a
